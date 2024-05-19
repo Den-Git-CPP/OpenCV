@@ -8,8 +8,10 @@
 
 int main()
 {
- std::string path
- cv::imread   
-
+ std::string path ="../resources_opencv/img1.png";
+ cv::Mat img= cv::imread(path);
+ cv::imshow("Image",img);
+ cv::waitKey(0);
+ 
     return 0;
 }
