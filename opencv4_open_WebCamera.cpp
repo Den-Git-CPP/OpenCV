@@ -15,6 +15,7 @@ int main ()
     while (true) {
         capture_webcam.read (img_cam);
         cv::imshow ("WebCamera", img_cam);
+        
         if (cv::waitKey (10) == 27) {
             std::cout << "Esc key is pressed by user. Stoppig the WebCamera\n";
             break;
