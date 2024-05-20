@@ -7,7 +7,7 @@
 int main ()
 {
     float w = 200;
-    float h = 350;
+    float h = 700;
     cv::Mat matrix, imgWrap;
     // Open Image
     std::string path = "../resources_opencv/img2.png";
