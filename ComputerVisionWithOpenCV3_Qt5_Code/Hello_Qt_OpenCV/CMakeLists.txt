@@ -24,6 +24,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
 )
 
 #OpenCV
+set(BUILD_SHARED_LIBS ON)
 find_package(OpenCV REQUIRED)
 message(STATUS "OpenCV library status:")
 message(STATUS "    config: ${OpenCV_DIR}")
@@ -51,8 +52,12 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE
+    PUBLIC
     ${OpenCV_LIBS}
+    -opencv_core490.dll
+    -opencv_highgui490.dll
+    -opencv_imgproc490.dll
+    -opencv_imgcodecs490.dll
 )
 
 
@@ -70,25 +75,33 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         /EHsc
         /W4
         /WX
+
     )
 endif()
 
-#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#add_custom_command(TARGET ${PROJECT_NAME}
 #COMMAND ${CMAKE_COMMAND} -E copy_directory
-#        ${CMAKE_SOURCE_DIR}/resource
-#        ${CMAKE_BINARY_DIR}/resource
+#        ${CMAKE_SOURCE_DIR}/resources
+#        ${CMAKE_BINARY_DIR}/resources
 #)
-#SET (MY_RELEASE_DIR ${CMAKE_BINARY_DIR}_Deploy_${PROJECT_NAME}) POST_BUILD
-##SET (MY_RELEASE_DIR ${CMAKE_CURRENT_LIST_DIR}_MyReleaseDir_EXE)
-#message( "Create Directory:" ${MY_RELEASE_DIR})
-#file(MAKE_DIRECTORY ${MY_RELEASE_DIR})
-#message("CopyFile "  ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe  " to "  ${MY_RELEASE_DIR} )
-#
-#add_custom_command(
-#    TARGET ${PROJECT_NAME} POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe ${MY_RELEASE_DIR}
-#    COMMAND G:\\Qt\\6.5.3\\mingw_64\\bin\\windeployqt6.exe ${MY_RELEASE_DIR}/${PROJECT_NAME}.exe
-#    #COMMAND ${MY_RELEASE_DIR}/${PROJECT_NAME}.exe
-#    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-#  )
+
+include(GNUInstallDirs)
+install(TARGETS ${PROJECT_NAME}
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+SET (MY_RELEASE_DIR ${CMAKE_BINARY_DIR}_Deploy_${PROJECT_NAME})
+###SET (MY_RELEASE_DIR ${CMAKE_CURRENT_LIST_DIR}_MyReleaseDir_EXE)
+message( "Create Directory:" ${MY_RELEASE_DIR})
+file(MAKE_DIRECTORY ${MY_RELEASE_DIR})
+message("CopyFile "  ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe  " to "  ${MY_RELEASE_DIR} )
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe ${MY_RELEASE_DIR}
+    COMMAND G:\\Qt\\6.5.3\\mingw_64\\bin\\windeployqt6.exe ${MY_RELEASE_DIR}/${PROJECT_NAME}.exe
+    #COMMAND ${MY_RELEASE_DIR}/${PROJECT_NAME}.exe
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  )
 
