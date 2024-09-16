@@ -16,6 +16,7 @@ message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
 file(GLOB SRC_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/LearnOpenCV_com/*.cpp"
 )
 
 foreach(src_file ${SRC_FILES})
