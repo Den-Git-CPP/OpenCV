@@ -42,8 +42,8 @@ int main (void)
     // Alpha channel is the 4th channel in RGBA Image
     glassMask1 = glassRGBAChannels [3];
 
-    // imwrite("../results/sunglassRGB.png", glassBGR);
-    // imwrite("../results/sunglassAlpha.png", glassMask1);
+    imwrite (DATA_PATH + "/sunglassRGB.png", glassBGR);
+    imwrite (DATA_PATH + "/sunglassAlpha.png", glassMask1);
 
     imshow ("glassBGR", glassBGR);
     imshow ("glassMask1", glassMask1);
