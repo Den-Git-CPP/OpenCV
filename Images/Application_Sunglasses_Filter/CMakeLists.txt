@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.15)
 project("")
 get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 message("CMAKE_CURRENT_SOURCE_DIR =>PROJECT_NAME=> " ${PROJECT_NAME})
@@ -15,8 +15,8 @@ message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
 
 file(GLOB SRC_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
-     )
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"   
+)
 
 foreach(src_file ${SRC_FILES})
     get_filename_component(target ${src_file} NAME_WLE)
@@ -28,7 +28,7 @@ endforeach(src_file ${SRC_FILES})
 foreach(target ${TARGETS})
 
 include_directories(
-    ${OpenCV_INCLUDE_DIRS}    
+    ${OpenCV_INCLUDE_DIRS}
     )
 
 target_link_libraries(${target} ${OpenCV_LIBS})
