@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
 project("")
 get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+message("==========================================================")
 message("CMAKE_CURRENT_SOURCE_DIR =>PROJECT_NAME=> " ${PROJECT_NAME})
+message("==========================================================")
 
 project(${PROJECT_NAME})
 
@@ -12,7 +14,6 @@ message(STATUS "    config: ${OpenCV_DIR}")
 message(STATUS "    version: ${OpenCV_VERSION}")
 message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
-
 
 file(GLOB SRC_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"   
