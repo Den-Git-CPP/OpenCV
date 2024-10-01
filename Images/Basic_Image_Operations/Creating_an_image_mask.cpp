@@ -11,7 +11,7 @@ using namespace cv;
 int main(void)
 {
   // Read image
-  Mat image = imread(DATA_PATH + "images/boy.jpg");
+  Mat image = imread(DATA_PATH + "/images/boy.jpg");
 
   // Создайте пустое изображение того же размера, что и исходное.
   Mat mask1 = Mat::zeros(image.size(), image.type());
