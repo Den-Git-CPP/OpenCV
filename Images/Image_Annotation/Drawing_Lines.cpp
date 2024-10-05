@@ -17,7 +17,7 @@ int main (void)
 
     // Загрузить изображение
     Mat image;
-    image = imread (imageName);
+    image = imread (imageName,IMREAD_COLOR);
     // Нарисовать линию
     Mat imageLine = image.clone ();
 
@@ -28,7 +28,7 @@ int main (void)
 
     line (imageLine, Point (200, 80), Point (280, 80), Scalar (0, 255, 0), 3, LINE_AA);
 
-    imwrite ("../results/line.jpg", imageLine);
+    imwrite (DATA_PATH + "/results/line.jpg", imageLine);
 
     imshow ("Image line", imageLine);
     if (cv::waitKey (0) == 27) {

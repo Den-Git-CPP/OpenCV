@@ -1,1 +1,1 @@
-std::string DATA_PATH = "../../../resources_opencv";
+std::string DATA_PATH = "../resources_opencv";
