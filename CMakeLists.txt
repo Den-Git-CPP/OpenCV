@@ -8,5 +8,6 @@ set(PROJECT_NAME ${MY_NAME} )
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 add_subdirectory(Images)
+add_subdirectory(Control)
 add_subdirectory(LearnOpenCV_com)
 
