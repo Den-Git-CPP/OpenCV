@@ -7,7 +7,7 @@ set(PROJECT_NAME ${MY_NAME} )
 
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-add_subdirectory(ColorSpaces)
+add_subdirectory(Color)
 add_subdirectory(Control)
 add_subdirectory(Images_Video)
 add_subdirectory(ImplementationOfMorphologicalOperations)
