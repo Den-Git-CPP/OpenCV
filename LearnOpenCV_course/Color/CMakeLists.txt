@@ -10,5 +10,6 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 add_subdirectory(ColorSpace)
 add_subdirectory(ColorTransformations)
 add_subdirectory(ImageFiltering)
+add_subdirectory(ImageSmoothing)
  
 
