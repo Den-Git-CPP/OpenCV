@@ -28,7 +28,7 @@ void interpolation (uchar* lut, float* fullRange, float* Curve, float* originalV
 int main ()
 {
     // Прочитать изображение
-    string filename = DATA_PATH + "images/girl.jpg";
+    string filename = DATA_PATH + "/images/boy.jpg";
     Mat Image       = imread (filename);
 
     // Точки поворота для X-координат
