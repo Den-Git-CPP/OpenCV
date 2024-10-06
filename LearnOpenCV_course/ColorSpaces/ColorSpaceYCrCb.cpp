@@ -10,7 +10,7 @@ int main()
 {
 // прочитать изображение в формате BGR
   vector<Mat> channels(3);
-  Mat bgr = imread(DATA_PATH + "/mages/DetectColor1.png");
+  Mat bgr = imread(DATA_PATH + "/images/DetectColor1.png");
   Mat ycbImage;
   cvtColor(bgr, ycbImage, COLOR_BGR2YCrCb);
   split(ycbImage, channels);
