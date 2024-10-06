@@ -1,5 +1,5 @@
 #include <iostream>
-#include "dataPath.hpp"
+#include "dataPath.h"
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
