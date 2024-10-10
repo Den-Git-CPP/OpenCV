@@ -9,6 +9,7 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 
 add_subdirectory(Color)
 add_subdirectory(Control)
+add_subdirectory(Image_Analysis)
 add_subdirectory(Images_Video)
 add_subdirectory(Filters_and_convolution)
 
