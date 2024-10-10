@@ -10,5 +10,5 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 add_subdirectory(Color)
 add_subdirectory(Control)
 add_subdirectory(Images_Video)
-add_subdirectory(ImplementationOfMorphologicalOperations)
+add_subdirectory(Filters_and_convolution)
 
