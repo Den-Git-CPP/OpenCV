@@ -8,6 +8,7 @@ set(PROJECT_NAME ${MY_NAME} )
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 add_subdirectory(ImageFiltering)
+add_subdirectory(ImageGradients)
 add_subdirectory(ImageSmoothing)
 add_subdirectory(ImplementationOfMorphologicalOperations)
 
