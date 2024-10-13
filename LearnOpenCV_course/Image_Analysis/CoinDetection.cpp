@@ -186,7 +186,7 @@ int main ()
     //  displayImage(imageCopy);
     /***/
     // Путь к изображению
-    imagePath = DATA_PATH "/images/CoinsB.png";
+    imagePath = DATA_PATH+ "/images/CoinsB.png";
     // Прочитать изображение
     // Сохраните его в переменной image
     image     = imread (imagePath);
