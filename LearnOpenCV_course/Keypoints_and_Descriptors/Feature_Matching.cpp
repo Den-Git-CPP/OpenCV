@@ -33,6 +33,7 @@ int main ()
 
     imshow ("Image", img3);
     waitKey (0);
+    
     FlannBasedMatcher matcher (new flann::LshIndexParams (6, 12, 1), new flann::SearchParams (50));
     std::vector<std::vector<DMatch> > matches_vec;
     matcher.knnMatch (des1, des2, matches_vec, 2);
