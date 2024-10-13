@@ -47,7 +47,7 @@ Mat displayConnectedComponents (Mat& im)
 int main ()
 {
 
-    string imagePath = DATA_PATH+ "/images/CoinsA.png";
+    string imagePath = DATA_PATH + "/images/CoinsA.png";
     // Прочитать изображение
     // Сохраните его в переменной image
     Mat image     = imread (imagePath);
@@ -184,9 +184,10 @@ int main ()
     }
 
     //  displayImage(imageCopy);
-    /***/
+    /*CoinsB
+     */
     // Путь к изображению
-    imagePath = DATA_PATH+ "/images/CoinsB.png";
+    imagePath = DATA_PATH + "/images/CoinsB.png";
     // Прочитать изображение
     // Сохраните его в переменной image
     image     = imread (imagePath);
@@ -300,8 +301,15 @@ int main ()
     displayImage (imageCopy, "contours Filtered", true, true);
 
     // Remove contours
+    ///
+    /// YOUR CODE HERE
+    ///
+
     // Draw revised contours
-    
+    ///
+    /// YOUR CODE HERE
+    ///
+
     // Разместите круги на монетах
     imageCopy = image.clone ();
     for (uint32_t i = 0; i < contours.size (); i++) {
