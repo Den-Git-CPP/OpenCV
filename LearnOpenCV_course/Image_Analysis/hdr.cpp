@@ -20,7 +20,7 @@ void readImagesAndTimes (vector<Mat>& images, vector<float>& times)
     static const char* filenames [] = { "img_0.033.jpg", "img_0.25.jpg", "img_2.5.jpg", "img_15.jpg" };
     for (int i = 0; i < numImages; i++) {
         Mat im = imread (DATA_PATH + "/images/" + filenames [i]);
-        resize (im, im, Size (640, 480));
+       // resize (im, im, Size (640, 480));
         images.push_back (im);
     }
 }
