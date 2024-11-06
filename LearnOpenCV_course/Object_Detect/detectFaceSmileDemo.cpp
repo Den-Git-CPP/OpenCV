@@ -21,6 +21,7 @@
 
 #include <iostream>
 #include <stdio.h>
+#include "dataPath.h"
 
 using namespace std;
 using namespace cv;
