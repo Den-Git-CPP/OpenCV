@@ -15,12 +15,11 @@ int main ()
 
     // Обнаружение лиц на изображении
     CascadeClassifier faceCascade;
-    string faceCascadePath = DATA_PATH + "/haarcascade/haarcascade_frontalface_default2.xml";
+    String faceCascadePath = DATA_PATH + "/haarcascade/haarcascade_frontalface_default2.xml";
 
     if (!faceCascade.load (faceCascadePath)) {
-        cout << "--(!)Error loading face cascade\n";
+        printf ("--(!)Error loading face cascade\n");
     };
-
     Mat frameGray;
     cvtColor (frame, frameGray, COLOR_BGR2GRAY);
 
@@ -40,7 +39,6 @@ int main ()
     frame (currWindow).copyTo (roiObject);
     Mat hsvObject;
     cvtColor (roiObject, hsvObject, COLOR_BGR2HSV);
-
     // Получить маску для расчета гистограммы объекта и
     // также удалить шум
     Mat mask;
@@ -52,10 +50,8 @@ int main ()
 
     imshow ("Mask of ROI", mask);
     waitKey (0);
-
     imshow ("ROI", roiObject);
     waitKey (0);
-
     destroyAllWindows ();
 
     Mat histObject;
@@ -87,20 +83,13 @@ int main ()
         imshow ("Back Projected Image", backProjectImage);
         waitKey (0);
         // Вычислить новое окно, используя среднее смещение в текущем кадре
-        RotatedRect rotatedWindow = CamShift (backProjectImage, currWindow, TermCriteria (TermCriteria::EPS | TermCriteria::COUNT, 10, 1));
-        // Отображение кадра с отслеживаемым местоположением лица
-        // Получение вершин rotatedWindow
-        Point2f rotatedWindowVertices [4];
-        rotatedWindow.points (rotatedWindowVertices);
+        int ret = meanShift (backProjectImage, currWindow, TermCriteria (TermCriteria::EPS | TermCriteria::COUNT, 10, 1));
 
         // Отображение кадра с отслеженным местоположением лица
         frameClone = frame.clone ();
 
         rectangle (frameClone, Point (currWindow.x, currWindow.y), Point (currWindow.x + currWindow.width, currWindow.y + currWindow.height),
           Scalar (255, 0, 0), 2, LINE_AA);
-        // Отобразить повернутый прямоугольник с информацией об ориентации
-        for (int i = 0; i < 4; i++)
-            line (frameClone, rotatedWindowVertices [i], rotatedWindowVertices [(i + 1) % 4], Scalar (0, 255, 0), 2, LINE_AA);
         imshow ("Mean Shift Object Tracking Demo", frameClone);
         waitKey (0);
 
