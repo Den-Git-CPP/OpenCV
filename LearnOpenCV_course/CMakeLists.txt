@@ -13,5 +13,6 @@ add_subdirectory(Image_Analysis)
 add_subdirectory(Images_Video)
 add_subdirectory(Keypoints_and_Descriptors)
 add_subdirectory(Object_Detect)
+add_subdirectory(Tracking)
 add_subdirectory(Filters_and_convolution)
 
