@@ -176,18 +176,18 @@ int main (int, char**)
     // dt for Transition matrix
     double dt = 0;
 
-    // Random number generator for randomly selecting frames for update
+// Генератор случайных чисел для случайного выбора кадров для обновления
     RNG rng (0xFFFFFFFF);
 
-    // Loop over all frames
+  // Цикл по всем кадрам
     while (cap.read (frame)) {
-        // Variable for displaying tracking result
+     // Переменная для отображения результата отслеживания
         frameDisplay = frame.clone ();
 
-        // Variable for displaying detection result
+      // Переменная для отображения результата обнаружения
         frameDisplayDetection = frame.clone ();
 
-        // Update dt for transition matrix.
+      // Обновляем dt для матрицы перехода.
         // dt = time elapsed.
 
         preTicks = ticks;
@@ -198,72 +198,72 @@ int main (int, char**)
         KF.transitionMatrix.at<float> (10) = dt;
         KF.transitionMatrix.at<float> (17) = dt;
 
-        // Kalman filter predict step
+        // Шаг прогнозирования фильтра Калмана
         predictedMeasurement = KF.predict ();
 
-        // Clear objects detected in previous frame.
+       // Очистить объекты, обнаруженные в предыдущем кадре.
         objects.clear ();
 
-        // Detect objects in current frame
+       // Обнаружение объектов в текущем кадре
         hog.detectMultiScale (frame, objects, weights, hitThreshold, winStride, padding, scale, finalThreshold, useMeanshiftGrouping);
 
-        // Find largest object
+        // Найти самый большой объект
         objectDetected = *std::max_element (objects.begin (), objects.end (), rectAreaComparator);
 
-        // Display detected rectangle
+       // Отображение обнаруженного прямоугольника
         rectangle (frameDisplayDetection, objectDetected, red, 2, 4);
 
-        // We will update measurements 15% of the time.
-        // Frames are randomly chosen.
+       // Мы обновим измерения в 15% случаев.
+// Кадры выбираются случайным образом.
         bool update = rng.uniform (0.0, 1.0) < 0.15;
 
         if (update) {
-            // Kalman filter update step
+           // Шаг обновления фильтра Калмана
             if (objects.size () > 0) {
-                // Copy x, y, w from the detected rectangle
+                // Копировать x, y, w из обнаруженного прямоугольника
                 measurement.at<float> (0) = objectDetected.x;
                 measurement.at<float> (1) = objectDetected.y;
                 measurement.at<float> (2) = objectDetected.width;
 
-                // Perform Kalman update step
+                // Выполнить шаг обновления Калмана
                 updatedMeasurement    = KF.correct (measurement);
                 measurementWasUpdated = true;
             }
             else {
-                // Measurement not updated because no object detected
+               // Измерение не обновлено, так как объект не обнаружен
                 measurementWasUpdated = false;
             }
         }
         else {
-            // Measurement not updated
+          // Измерение не обновлено
             measurementWasUpdated = false;
         }
 
         if (measurementWasUpdated) {
-            // Use updated measurement if measurement was updated
+            // Использовать обновленное измерение, если измерение было обновлено
             objectTracked = Rect (updatedMeasurement.at<float> (0), updatedMeasurement.at<float> (1), updatedMeasurement.at<float> (2),
               2 * updatedMeasurement.at<float> (2));
         }
         else {
-            // If measurement was not updated, use predicted values.
+           // Если измерение не было обновлено, используйте прогнозируемые значения.
             objectTracked = Rect (predictedMeasurement.at<float> (0), predictedMeasurement.at<float> (1), predictedMeasurement.at<float> (2),
               2 * predictedMeasurement.at<float> (2));
         }
 
-        // Draw tracked object
+        // Рисуем отслеживаемый объект
         rectangle (frameDisplay, objectTracked, blue, 2, 4);
 
-        // Text indicating Tracking or Detection.
+      // Текст, указывающий на отслеживание или обнаружение.
         putText (frameDisplay, "Tracking", Point (20, 40), FONT_HERSHEY_SIMPLEX, 0.75, blue, 2);
         putText (frameDisplayDetection, "Detection", Point (20, 40), FONT_HERSHEY_SIMPLEX, 0.75, red, 2);
 
-        // Concatenate detected result and tracked result vertically
+        // Объединить обнаруженный результат и отслеживаемый результат по вертикали
         vconcat (frameDisplayDetection, frameDisplay, output);
 
-        // Display result.
+        / Показать результат.
         imshow ("object Tracker", output);
         int key = waitKey (5);
-        // Break if ESC pressed
+        // Остановка при нажатии ESC
         if (key == 27) {
             break;
         }
