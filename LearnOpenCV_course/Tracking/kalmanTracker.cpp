@@ -176,18 +176,18 @@ int main (int, char**)
     // dt for Transition matrix
     double dt = 0;
 
-// Генератор случайных чисел для случайного выбора кадров для обновления
+    // Генератор случайных чисел для случайного выбора кадров для обновления
     RNG rng (0xFFFFFFFF);
 
-  // Цикл по всем кадрам
+    // Цикл по всем кадрам
     while (cap.read (frame)) {
-     // Переменная для отображения результата отслеживания
+        // Переменная для отображения результата отслеживания
         frameDisplay = frame.clone ();
 
-      // Переменная для отображения результата обнаружения
+        // Переменная для отображения результата обнаружения
         frameDisplayDetection = frame.clone ();
 
-      // Обновляем dt для матрицы перехода.
+        // Обновляем dt для матрицы перехода.
         // dt = time elapsed.
 
         preTicks = ticks;
@@ -201,24 +201,24 @@ int main (int, char**)
         // Шаг прогнозирования фильтра Калмана
         predictedMeasurement = KF.predict ();
 
-       // Очистить объекты, обнаруженные в предыдущем кадре.
+        // Очистить объекты, обнаруженные в предыдущем кадре.
         objects.clear ();
 
-       // Обнаружение объектов в текущем кадре
+        // Обнаружение объектов в текущем кадре
         hog.detectMultiScale (frame, objects, weights, hitThreshold, winStride, padding, scale, finalThreshold, useMeanshiftGrouping);
 
         // Найти самый большой объект
         objectDetected = *std::max_element (objects.begin (), objects.end (), rectAreaComparator);
 
-       // Отображение обнаруженного прямоугольника
+        // Отображение обнаруженного прямоугольника
         rectangle (frameDisplayDetection, objectDetected, red, 2, 4);
 
-       // Мы обновим измерения в 15% случаев.
-// Кадры выбираются случайным образом.
+        // Мы обновим измерения в 15% случаев.
+        // Кадры выбираются случайным образом.
         bool update = rng.uniform (0.0, 1.0) < 0.15;
 
         if (update) {
-           // Шаг обновления фильтра Калмана
+            // Шаг обновления фильтра Калмана
             if (objects.size () > 0) {
                 // Копировать x, y, w из обнаруженного прямоугольника
                 measurement.at<float> (0) = objectDetected.x;
@@ -230,12 +230,12 @@ int main (int, char**)
                 measurementWasUpdated = true;
             }
             else {
-               // Измерение не обновлено, так как объект не обнаружен
+                // Измерение не обновлено, так как объект не обнаружен
                 measurementWasUpdated = false;
             }
         }
         else {
-          // Измерение не обновлено
+            // Измерение не обновлено
             measurementWasUpdated = false;
         }
 
@@ -245,7 +245,7 @@ int main (int, char**)
               2 * updatedMeasurement.at<float> (2));
         }
         else {
-           // Если измерение не было обновлено, используйте прогнозируемые значения.
+            // Если измерение не было обновлено, используйте прогнозируемые значения.
             objectTracked = Rect (predictedMeasurement.at<float> (0), predictedMeasurement.at<float> (1), predictedMeasurement.at<float> (2),
               2 * predictedMeasurement.at<float> (2));
         }
@@ -253,15 +253,14 @@ int main (int, char**)
         // Рисуем отслеживаемый объект
         rectangle (frameDisplay, objectTracked, blue, 2, 4);
 
-      // Текст, указывающий на отслеживание или обнаружение.
+        // Текст, указывающий на отслеживание или обнаружение.
         putText (frameDisplay, "Tracking", Point (20, 40), FONT_HERSHEY_SIMPLEX, 0.75, blue, 2);
         putText (frameDisplayDetection, "Detection", Point (20, 40), FONT_HERSHEY_SIMPLEX, 0.75, red, 2);
 
         // Объединить обнаруженный результат и отслеживаемый результат по вертикали
         vconcat (frameDisplayDetection, frameDisplay, output);
 
-        / Показать результат.
-        imshow ("object Tracker", output);
+        / Показать результат.imshow ("object Tracker", output);
         int key = waitKey (5);
         // Остановка при нажатии ESC
         if (key == 27) {
