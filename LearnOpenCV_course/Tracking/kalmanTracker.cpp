@@ -260,7 +260,7 @@ int main (int, char**)
         // Объединить обнаруженный результат и отслеживаемый результат по вертикали
         vconcat (frameDisplayDetection, frameDisplay, output);
 
-        / Показать результат.imshow ("object Tracker", output);
+        // Показать результат.imshow ("object Tracker", output);
         int key = waitKey (5);
         // Остановка при нажатии ESC
         if (key == 27) {

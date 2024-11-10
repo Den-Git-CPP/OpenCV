@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <ctype.h>
-#include "dataPath.hpp"
+#include "dataPath.h"
 
 using namespace std;
 using namespace cv;
@@ -20,7 +20,7 @@ void getRandomColors (vector<Scalar>& colors, int numColors)
 
 int main ()
 {
-    string videoFileName = DATA_PATH + "videos/cycle.mp4";
+    string videoFileName = DATA_PATH + "/videos/cycle.mp4";
     VideoCapture cap (videoFileName);
 
     int width  = cap.get (CAP_PROP_FRAME_WIDTH);
